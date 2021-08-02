@@ -1,0 +1,54 @@
+From 31339f1676c755ce25ffdea9846d6b06ea228252 Mon Sep 17 00:00:00 2001
+From: OM Miles <miles@ommiles.com>
+Date: Mon, 2 Aug 2021 22:25:01 +0000
+Subject: [PATCH] Create Patch File
+
+---
+ client_test.py | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
+
+diff --git a/client_test.py b/client_test.py
+index ca9a866..ef0153e 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -1,5 +1,5 @@
+ import unittest
+-from client3 import getDataPoint
++from client3 import getDataPoint, getRatio
+ 
+ class ClientTest(unittest.TestCase):
+   def test_getDataPoint_calculatePrice(self):
+@@ -18,6 +18,30 @@ class ClientTest(unittest.TestCase):
+   #   """ ------------ Add the assertion below ------------ """
+ 
+   """ ------------ Add more unit tests ------------ """
++def test_getRatio_priceBZero(self):
++  price_a = 911.2
++  price_b = 0
++  self.assertIsNone(getRatio(price_a, price_b))
++ 
++def test_getRatio_priceAZero(self):
++  price_a = 0
++  price_b = 211.68
++  self.assertEqual(getRatio(price_a, price_b), 0)
++ 
++def test_getRatio_greaterThan1(self):
++  price_a = 946.48
++  price_b = 940
++  self.assertGreater(getRatio(price_a, price_b), 1)
++
++def test_getRatio_LessThan1(self):
++  price_a = 1.39
++  price_b = 300.00
++  self.assertLess(getRatio(price_a, price_b), 1)
++
++def test_getRatio_exactlyOne(self):
++  price_a = 327.71
++  price_b = 327.71
++  self.assertEqual(getRatio(price_a, price_b), 1)
+ 
+ if __name__ == '__main__':
+     unittest.main()
+-- 
+2.17.1
+
